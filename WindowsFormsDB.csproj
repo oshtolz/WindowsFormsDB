@@ -1,0 +1,254 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0F016C9D-B346-4C83-AD0F-6DE08EA29650}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>WindowsFormsDB</RootNamespace>
+    <AssemblyName>WindowsFormsDB</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Bus.cs">
+      <DependentUpon>Excursion.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BusMark.cs">
+      <DependentUpon>Excursion.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BusSchedule.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BusSchedule.Designer.cs">
+      <DependentUpon>BusSchedule.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client.cs">
+      <DependentUpon>Excursion.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustomerPay.Designer.cs">
+      <DependentUpon>CustomerPay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Driver.cs">
+      <DependentUpon>Excursion.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Excursion.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Excursion.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Excursion.cs">
+      <DependentUpon>Excursion.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Excursion.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Excursion.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Excursion1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Excursion.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Excursion1Model.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Excursion1Model.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Excursion1Model.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Excursion1Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExcursionBusDriver.cs">
+      <DependentUpon>Excursion.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExcursionClient.cs">
+      <DependentUpon>Excursion.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExcursionForPeriod.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExcursionForPeriod.Designer.cs">
+      <DependentUpon>ExcursionForPeriod.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExcursionModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExcursionModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Excursions1DataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Excursions1DataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ExcursionType.cs">
+      <DependentUpon>Excursion.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FinReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FinReport.Designer.cs">
+      <DependentUpon>FinReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu.Designer.cs">
+      <DependentUpon>Menu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Payment.cs">
+      <DependentUpon>Excursion.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>Excursion.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagrams_Result.cs">
+      <DependentUpon>Excursion.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagram.cs">
+      <DependentUpon>Excursion.tt</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="BusSchedule.resx">
+      <DependentUpon>BusSchedule.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomerPay.resx">
+      <DependentUpon>CustomerPay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExcursionForPeriod.resx">
+      <DependentUpon>ExcursionForPeriod.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FinReport.resx">
+      <DependentUpon>FinReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu.resx">
+      <DependentUpon>Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="EF.Reverse.POCO.v3.ttinclude" />
+    <EntityDeploy Include="Excursion.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Excursion.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Excursion.edmx.diagram">
+      <DependentUpon>Excursion.edmx</DependentUpon>
+    </None>
+    <None Include="Excursions1DataSet.xsc">
+      <DependentUpon>Excursions1DataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Excursions1DataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Excursions1DataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Excursions1DataSet.xss">
+      <DependentUpon>Excursions1DataSet.xsd</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Excursion.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Excursion.edmx</DependentUpon>
+      <LastGenOutput>Excursion.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Excursion.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Excursion.edmx</DependentUpon>
+      <LastGenOutput>Excursion1.cs</LastGenOutput>
+    </Content>
+    <Content Include="Excursion1Model.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Excursion1Model.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Excursion1Model.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Excursion1Model.cs</LastGenOutput>
+    </Content>
+    <Content Include="ExcursionModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ExcursionModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,852 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Excursions1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bus">
+          <Key>
+            <PropertyRef Name="busId" />
+          </Key>
+          <Property Name="busId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="capacity" Type="int" Nullable="false" />
+          <Property Name="isOnGoing" Type="bit" Nullable="false" />
+          <Property Name="mark" Type="int" Nullable="false" />
+          <Property Name="numberPlate" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="color" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="consumption" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BusMark">
+          <Key>
+            <PropertyRef Name="markId" />
+          </Key>
+          <Property Name="markId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="markName" Type="nvarchar" MaxLength="16" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="clientId" />
+          </Key>
+          <Property Name="clientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="clientName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="clientLastName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="phone" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="country" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Driver">
+          <Key>
+            <PropertyRef Name="driverId" />
+          </Key>
+          <Property Name="driverId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="isOnGoing" Type="bit" Nullable="false" />
+          <Property Name="number" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="driverName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="driverLastName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="isOnVocation" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Excursion">
+          <Key>
+            <PropertyRef Name="excursionId" />
+          </Key>
+          <Property Name="excursionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="startDate" Type="date" Nullable="false" />
+          <Property Name="duration" Type="float" Nullable="false" />
+          <Property Name="distanceKM" Type="int" Nullable="false" />
+          <Property Name="countOfCustomers" Type="int" Nullable="false" />
+          <Property Name="excursionType" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Excursions1.dbo.ExcursionBus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ExcursionBus">
+          <Key>
+            <PropertyRef Name="busId" />
+            <PropertyRef Name="excursionTypeId" />
+          </Key>
+          <Property Name="busId" Type="int" Nullable="false" />
+          <Property Name="excursionTypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Excursions1.dbo.ExcursionBusDriver' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ExcursionBusDriver">
+          <Key>
+            <PropertyRef Name="excursionId" />
+            <PropertyRef Name="busId" />
+            <PropertyRef Name="driverId" />
+          </Key>
+          <Property Name="excursionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="busId" Type="int" Nullable="false" />
+          <Property Name="driverId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ExcursionClient">
+          <Key>
+            <PropertyRef Name="clientId" />
+          </Key>
+          <Property Name="excursionClientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="clientId" Type="int" Nullable="false" />
+          <Property Name="excursionId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ExcursionType">
+          <Key>
+            <PropertyRef Name="typeId" />
+          </Key>
+          <Property Name="typeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="typeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="clientId" />
+          </Key>
+          <Property Name="paymentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="excursionId" Type="int" Nullable="false" />
+          <Property Name="clientId" Type="int" Nullable="false" />
+          <Property Name="price" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="isPaid" Type="bit" Nullable="false" />
+          <Property Name="paid" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="Bus_fk0">
+          <End Role="BusMark" Type="Self.BusMark" Multiplicity="1" />
+          <End Role="Bus" Type="Self.Bus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusMark">
+              <PropertyRef Name="markId" />
+            </Principal>
+            <Dependent Role="Bus">
+              <PropertyRef Name="mark" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Excursion_fk0">
+          <End Role="ExcursionType" Type="Self.ExcursionType" Multiplicity="1" />
+          <End Role="Excursion" Type="Self.Excursion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExcursionType">
+              <PropertyRef Name="typeId" />
+            </Principal>
+            <Dependent Role="Excursion">
+              <PropertyRef Name="excursionType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ExcursionBus_fk0">
+          <End Role="Bus" Type="Self.Bus" Multiplicity="1" />
+          <End Role="ExcursionBus" Type="Self.ExcursionBus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bus">
+              <PropertyRef Name="busId" />
+            </Principal>
+            <Dependent Role="ExcursionBus">
+              <PropertyRef Name="busId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ExcursionBus_fk1">
+          <End Role="ExcursionType" Type="Self.ExcursionType" Multiplicity="1" />
+          <End Role="ExcursionBus" Type="Self.ExcursionBus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExcursionType">
+              <PropertyRef Name="typeId" />
+            </Principal>
+            <Dependent Role="ExcursionBus">
+              <PropertyRef Name="excursionTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ExcursionBusDriver_fk0">
+          <End Role="Excursion" Type="Self.Excursion" Multiplicity="1" />
+          <End Role="ExcursionBusDriver" Type="Self.ExcursionBusDriver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Excursion">
+              <PropertyRef Name="excursionId" />
+            </Principal>
+            <Dependent Role="ExcursionBusDriver">
+              <PropertyRef Name="excursionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ExcursionBusDriver_fk1">
+          <End Role="Bus" Type="Self.Bus" Multiplicity="1" />
+          <End Role="ExcursionBusDriver" Type="Self.ExcursionBusDriver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bus">
+              <PropertyRef Name="busId" />
+            </Principal>
+            <Dependent Role="ExcursionBusDriver">
+              <PropertyRef Name="busId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ExcursionBusDriver_fk2">
+          <End Role="Driver" Type="Self.Driver" Multiplicity="1" />
+          <End Role="ExcursionBusDriver" Type="Self.ExcursionBusDriver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="driverId" />
+            </Principal>
+            <Dependent Role="ExcursionBusDriver">
+              <PropertyRef Name="driverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ExcursionClient_fk0">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="ExcursionClient" Type="Self.ExcursionClient" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="clientId" />
+            </Principal>
+            <Dependent Role="ExcursionClient">
+              <PropertyRef Name="clientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ExcursionClient_fk1">
+          <End Role="Excursion" Type="Self.Excursion" Multiplicity="1" />
+          <End Role="ExcursionClient" Type="Self.ExcursionClient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Excursion">
+              <PropertyRef Name="excursionId" />
+            </Principal>
+            <Dependent Role="ExcursionClient">
+              <PropertyRef Name="excursionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Payment_fk0">
+          <End Role="Excursion" Type="Self.Excursion" Multiplicity="1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Excursion">
+              <PropertyRef Name="excursionId" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="excursionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Payment_fk1">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="clientId" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="clientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="excursion_pay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="clientId" Type="int" Mode="In" />
+          <Parameter Name="startDate" Type="date" Mode="In" />
+        </Function>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="pay_for_excursions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="startDate" Type="date" Mode="In" />
+        </Function>
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="Excursions1ModelStoreContainer">
+          <EntitySet Name="Bus" EntityType="Self.Bus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BusMark" EntityType="Self.BusMark" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Driver" EntityType="Self.Driver" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Excursion" EntityType="Self.Excursion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExcursionClient" EntityType="Self.ExcursionClient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExcursionType" EntityType="Self.ExcursionType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExcursionBus" EntityType="Self.ExcursionBus" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[ExcursionBus].[busId] AS [busId], 
+[ExcursionBus].[excursionTypeId] AS [excursionTypeId]
+FROM [dbo].[ExcursionBus] AS [ExcursionBus]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ExcursionBusDriver" EntityType="Self.ExcursionBusDriver" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[ExcursionBusDriver].[excursionId] AS [excursionId], 
+[ExcursionBusDriver].[busId] AS [busId], 
+[ExcursionBusDriver].[driverId] AS [driverId]
+FROM [dbo].[ExcursionBusDriver] AS [ExcursionBusDriver]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="Bus_fk0" Association="Self.Bus_fk0">
+            <End Role="BusMark" EntitySet="BusMark" />
+            <End Role="Bus" EntitySet="Bus" />
+          </AssociationSet>
+          <AssociationSet Name="Excursion_fk0" Association="Self.Excursion_fk0">
+            <End Role="ExcursionType" EntitySet="ExcursionType" />
+            <End Role="Excursion" EntitySet="Excursion" />
+          </AssociationSet>
+          <AssociationSet Name="ExcursionBus_fk0" Association="Self.ExcursionBus_fk0">
+            <End Role="Bus" EntitySet="Bus" />
+            <End Role="ExcursionBus" EntitySet="ExcursionBus" />
+          </AssociationSet>
+          <AssociationSet Name="ExcursionBus_fk1" Association="Self.ExcursionBus_fk1">
+            <End Role="ExcursionType" EntitySet="ExcursionType" />
+            <End Role="ExcursionBus" EntitySet="ExcursionBus" />
+          </AssociationSet>
+          <AssociationSet Name="ExcursionBusDriver_fk0" Association="Self.ExcursionBusDriver_fk0">
+            <End Role="Excursion" EntitySet="Excursion" />
+            <End Role="ExcursionBusDriver" EntitySet="ExcursionBusDriver" />
+          </AssociationSet>
+          <AssociationSet Name="ExcursionBusDriver_fk1" Association="Self.ExcursionBusDriver_fk1">
+            <End Role="Bus" EntitySet="Bus" />
+            <End Role="ExcursionBusDriver" EntitySet="ExcursionBusDriver" />
+          </AssociationSet>
+          <AssociationSet Name="ExcursionBusDriver_fk2" Association="Self.ExcursionBusDriver_fk2">
+            <End Role="Driver" EntitySet="Driver" />
+            <End Role="ExcursionBusDriver" EntitySet="ExcursionBusDriver" />
+          </AssociationSet>
+          <AssociationSet Name="ExcursionClient_fk0" Association="Self.ExcursionClient_fk0">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="ExcursionClient" EntitySet="ExcursionClient" />
+          </AssociationSet>
+          <AssociationSet Name="ExcursionClient_fk1" Association="Self.ExcursionClient_fk1">
+            <End Role="Excursion" EntitySet="Excursion" />
+            <End Role="ExcursionClient" EntitySet="ExcursionClient" />
+          </AssociationSet>
+          <AssociationSet Name="Payment_fk0" Association="Self.Payment_fk0">
+            <End Role="Excursion" EntitySet="Excursion" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="Payment_fk1" Association="Self.Payment_fk1">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Excursions1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Bus">
+          <Key>
+            <PropertyRef Name="busId" />
+          </Key>
+          <Property Name="busId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="capacity" Type="Int32" Nullable="false" />
+          <Property Name="isOnGoing" Type="Boolean" Nullable="false" />
+          <Property Name="mark" Type="Int32" Nullable="false" />
+          <Property Name="numberPlate" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="color" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="consumption" Type="Double" Nullable="false" />
+          <NavigationProperty Name="BusMark" Relationship="Self.Bus_fk0" FromRole="Bus" ToRole="BusMark" />
+          <NavigationProperty Name="ExcursionBusDrivers" Relationship="Self.ExcursionBusDriver_fk1" FromRole="Bus" ToRole="ExcursionBusDriver" />
+          <NavigationProperty Name="ExcursionTypes" Relationship="Self.ExcursionBus" FromRole="Bus" ToRole="ExcursionType" />
+        </EntityType>
+        <EntityType Name="BusMark">
+          <Key>
+            <PropertyRef Name="markId" />
+          </Key>
+          <Property Name="markId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="markName" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Buses" Relationship="Self.Bus_fk0" FromRole="BusMark" ToRole="Bus" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="clientId" />
+          </Key>
+          <Property Name="clientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="clientName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="clientLastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="phone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="country" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ExcursionClient" Relationship="Self.ExcursionClient_fk0" FromRole="Client" ToRole="ExcursionClient" />
+          <NavigationProperty Name="Payment" Relationship="Self.Payment_fk1" FromRole="Client" ToRole="Payment" />
+        </EntityType>
+        <EntityType Name="Driver">
+          <Key>
+            <PropertyRef Name="driverId" />
+          </Key>
+          <Property Name="driverId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="isOnGoing" Type="Boolean" Nullable="false" />
+          <Property Name="number" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="driverName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="driverLastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="isOnVocation" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ExcursionBusDrivers" Relationship="Self.ExcursionBusDriver_fk2" FromRole="Driver" ToRole="ExcursionBusDriver" />
+        </EntityType>
+        <EntityType Name="Excursion">
+          <Key>
+            <PropertyRef Name="excursionId" />
+          </Key>
+          <Property Name="excursionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="startDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="duration" Type="Double" Nullable="false" />
+          <Property Name="distanceKM" Type="Int32" Nullable="false" />
+          <Property Name="countOfCustomers" Type="Int32" Nullable="false" />
+          <Property Name="excursionType" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ExcursionType1" Relationship="Self.Excursion_fk0" FromRole="Excursion" ToRole="ExcursionType" />
+          <NavigationProperty Name="ExcursionBusDrivers" Relationship="Self.ExcursionBusDriver_fk0" FromRole="Excursion" ToRole="ExcursionBusDriver" />
+          <NavigationProperty Name="ExcursionClients" Relationship="Self.ExcursionClient_fk1" FromRole="Excursion" ToRole="ExcursionClient" />
+          <NavigationProperty Name="Payments" Relationship="Self.Payment_fk0" FromRole="Excursion" ToRole="Payment" />
+        </EntityType>
+        <EntityType Name="ExcursionClient">
+          <Key>
+            <PropertyRef Name="clientId" />
+          </Key>
+          <Property Name="excursionClientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="clientId" Type="Int32" Nullable="false" />
+          <Property Name="excursionId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Self.ExcursionClient_fk0" FromRole="ExcursionClient" ToRole="Client" />
+          <NavigationProperty Name="Excursion" Relationship="Self.ExcursionClient_fk1" FromRole="ExcursionClient" ToRole="Excursion" />
+        </EntityType>
+        <EntityType Name="ExcursionType">
+          <Key>
+            <PropertyRef Name="typeId" />
+          </Key>
+          <Property Name="typeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="typeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Excursions" Relationship="Self.Excursion_fk0" FromRole="ExcursionType" ToRole="Excursion" />
+          <NavigationProperty Name="Buses" Relationship="Self.ExcursionBus" FromRole="ExcursionType" ToRole="Bus" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="clientId" />
+          </Key>
+          <Property Name="paymentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="excursionId" Type="Int32" Nullable="false" />
+          <Property Name="clientId" Type="Int32" Nullable="false" />
+          <Property Name="price" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="isPaid" Type="Boolean" Nullable="false" />
+          <Property Name="paid" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Self.Payment_fk1" FromRole="Payment" ToRole="Client" />
+          <NavigationProperty Name="Excursion" Relationship="Self.Payment_fk0" FromRole="Payment" ToRole="Excursion" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="ExcursionBusDriver">
+          <Key>
+            <PropertyRef Name="excursionId" />
+            <PropertyRef Name="busId" />
+            <PropertyRef Name="driverId" />
+          </Key>
+          <Property Name="excursionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="busId" Type="Int32" Nullable="false" />
+          <Property Name="driverId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bus" Relationship="Self.ExcursionBusDriver_fk1" FromRole="ExcursionBusDriver" ToRole="Bus" />
+          <NavigationProperty Name="Driver" Relationship="Self.ExcursionBusDriver_fk2" FromRole="ExcursionBusDriver" ToRole="Driver" />
+          <NavigationProperty Name="Excursion" Relationship="Self.ExcursionBusDriver_fk0" FromRole="ExcursionBusDriver" ToRole="Excursion" />
+        </EntityType>
+        <Association Name="Bus_fk0">
+          <End Role="BusMark" Type="Self.BusMark" Multiplicity="1" />
+          <End Role="Bus" Type="Self.Bus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusMark">
+              <PropertyRef Name="markId" />
+            </Principal>
+            <Dependent Role="Bus">
+              <PropertyRef Name="mark" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ExcursionBusDriver_fk1">
+          <End Role="Bus" Type="Self.Bus" Multiplicity="1" />
+          <End Role="ExcursionBusDriver" Type="Self.ExcursionBusDriver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bus">
+              <PropertyRef Name="busId" />
+            </Principal>
+            <Dependent Role="ExcursionBusDriver">
+              <PropertyRef Name="busId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ExcursionClient_fk0">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="ExcursionClient" Type="Self.ExcursionClient" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="clientId" />
+            </Principal>
+            <Dependent Role="ExcursionClient">
+              <PropertyRef Name="clientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Payment_fk1">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="clientId" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="clientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ExcursionBusDriver_fk2">
+          <End Role="Driver" Type="Self.Driver" Multiplicity="1" />
+          <End Role="ExcursionBusDriver" Type="Self.ExcursionBusDriver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="driverId" />
+            </Principal>
+            <Dependent Role="ExcursionBusDriver">
+              <PropertyRef Name="driverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Excursion_fk0">
+          <End Role="ExcursionType" Type="Self.ExcursionType" Multiplicity="1" />
+          <End Role="Excursion" Type="Self.Excursion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExcursionType">
+              <PropertyRef Name="typeId" />
+            </Principal>
+            <Dependent Role="Excursion">
+              <PropertyRef Name="excursionType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ExcursionBusDriver_fk0">
+          <End Role="Excursion" Type="Self.Excursion" Multiplicity="1" />
+          <End Role="ExcursionBusDriver" Type="Self.ExcursionBusDriver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Excursion">
+              <PropertyRef Name="excursionId" />
+            </Principal>
+            <Dependent Role="ExcursionBusDriver">
+              <PropertyRef Name="excursionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ExcursionClient_fk1">
+          <End Role="Excursion" Type="Self.Excursion" Multiplicity="1" />
+          <End Role="ExcursionClient" Type="Self.ExcursionClient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Excursion">
+              <PropertyRef Name="excursionId" />
+            </Principal>
+            <Dependent Role="ExcursionClient">
+              <PropertyRef Name="excursionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Payment_fk0">
+          <End Role="Excursion" Type="Self.Excursion" Multiplicity="1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Excursion">
+              <PropertyRef Name="excursionId" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="excursionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ExcursionBus">
+          <End Role="Bus" Type="Self.Bus" Multiplicity="*" />
+          <End Role="ExcursionType" Type="Self.ExcursionType" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="Excursions1Context" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Buses" EntityType="Self.Bus" />
+          <EntitySet Name="BusMarks" EntityType="Self.BusMark" />
+          <EntitySet Name="Clients" EntityType="Self.Client" />
+          <EntitySet Name="Drivers" EntityType="Self.Driver" />
+          <EntitySet Name="Excursions" EntityType="Self.Excursion" />
+          <EntitySet Name="ExcursionClients" EntityType="Self.ExcursionClient" />
+          <EntitySet Name="ExcursionTypes" EntityType="Self.ExcursionType" />
+          <EntitySet Name="Payments" EntityType="Self.Payment" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="ExcursionBusDrivers" EntityType="Self.ExcursionBusDriver" />
+          <AssociationSet Name="Bus_fk0" Association="Self.Bus_fk0">
+            <End Role="BusMark" EntitySet="BusMarks" />
+            <End Role="Bus" EntitySet="Buses" />
+          </AssociationSet>
+          <AssociationSet Name="ExcursionBusDriver_fk1" Association="Self.ExcursionBusDriver_fk1">
+            <End Role="Bus" EntitySet="Buses" />
+            <End Role="ExcursionBusDriver" EntitySet="ExcursionBusDrivers" />
+          </AssociationSet>
+          <AssociationSet Name="ExcursionClient_fk0" Association="Self.ExcursionClient_fk0">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="ExcursionClient" EntitySet="ExcursionClients" />
+          </AssociationSet>
+          <AssociationSet Name="Payment_fk1" Association="Self.Payment_fk1">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="ExcursionBusDriver_fk2" Association="Self.ExcursionBusDriver_fk2">
+            <End Role="Driver" EntitySet="Drivers" />
+            <End Role="ExcursionBusDriver" EntitySet="ExcursionBusDrivers" />
+          </AssociationSet>
+          <AssociationSet Name="Excursion_fk0" Association="Self.Excursion_fk0">
+            <End Role="ExcursionType" EntitySet="ExcursionTypes" />
+            <End Role="Excursion" EntitySet="Excursions" />
+          </AssociationSet>
+          <AssociationSet Name="ExcursionBusDriver_fk0" Association="Self.ExcursionBusDriver_fk0">
+            <End Role="Excursion" EntitySet="Excursions" />
+            <End Role="ExcursionBusDriver" EntitySet="ExcursionBusDrivers" />
+          </AssociationSet>
+          <AssociationSet Name="ExcursionClient_fk1" Association="Self.ExcursionClient_fk1">
+            <End Role="Excursion" EntitySet="Excursions" />
+            <End Role="ExcursionClient" EntitySet="ExcursionClients" />
+          </AssociationSet>
+          <AssociationSet Name="Payment_fk0" Association="Self.Payment_fk0">
+            <End Role="Excursion" EntitySet="Excursions" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="ExcursionBus" Association="Self.ExcursionBus">
+            <End Role="Bus" EntitySet="Buses" />
+            <End Role="ExcursionType" EntitySet="ExcursionTypes" />
+          </AssociationSet>
+          <FunctionImport Name="pay_for_excursions">
+            <Parameter Name="startDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(Excursions1Model.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(Excursions1Model.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+        </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Excursions1ModelStoreContainer" CdmEntityContainer="Excursions1Context">
+          <EntitySetMapping Name="Buses">
+            <EntityTypeMapping TypeName="Excursions1Model.Bus">
+              <MappingFragment StoreEntitySet="Bus">
+                <ScalarProperty Name="busId" ColumnName="busId" />
+                <ScalarProperty Name="capacity" ColumnName="capacity" />
+                <ScalarProperty Name="isOnGoing" ColumnName="isOnGoing" />
+                <ScalarProperty Name="mark" ColumnName="mark" />
+                <ScalarProperty Name="numberPlate" ColumnName="numberPlate" />
+                <ScalarProperty Name="color" ColumnName="color" />
+                <ScalarProperty Name="consumption" ColumnName="consumption" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BusMarks">
+            <EntityTypeMapping TypeName="Excursions1Model.BusMark">
+              <MappingFragment StoreEntitySet="BusMark">
+                <ScalarProperty Name="markId" ColumnName="markId" />
+                <ScalarProperty Name="markName" ColumnName="markName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="Excursions1Model.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="clientId" ColumnName="clientId" />
+                <ScalarProperty Name="clientName" ColumnName="clientName" />
+                <ScalarProperty Name="clientLastName" ColumnName="clientLastName" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="country" ColumnName="country" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Drivers">
+            <EntityTypeMapping TypeName="Excursions1Model.Driver">
+              <MappingFragment StoreEntitySet="Driver">
+                <ScalarProperty Name="driverId" ColumnName="driverId" />
+                <ScalarProperty Name="isOnGoing" ColumnName="isOnGoing" />
+                <ScalarProperty Name="number" ColumnName="number" />
+                <ScalarProperty Name="driverName" ColumnName="driverName" />
+                <ScalarProperty Name="driverLastName" ColumnName="driverLastName" />
+                <ScalarProperty Name="isOnVocation" ColumnName="isOnVocation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Excursions">
+            <EntityTypeMapping TypeName="Excursions1Model.Excursion">
+              <MappingFragment StoreEntitySet="Excursion">
+                <ScalarProperty Name="excursionId" ColumnName="excursionId" />
+                <ScalarProperty Name="startDate" ColumnName="startDate" />
+                <ScalarProperty Name="duration" ColumnName="duration" />
+                <ScalarProperty Name="distanceKM" ColumnName="distanceKM" />
+                <ScalarProperty Name="countOfCustomers" ColumnName="countOfCustomers" />
+                <ScalarProperty Name="excursionType" ColumnName="excursionType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExcursionClients">
+            <EntityTypeMapping TypeName="Excursions1Model.ExcursionClient">
+              <MappingFragment StoreEntitySet="ExcursionClient">
+                <ScalarProperty Name="excursionClientId" ColumnName="excursionClientId" />
+                <ScalarProperty Name="clientId" ColumnName="clientId" />
+                <ScalarProperty Name="excursionId" ColumnName="excursionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExcursionTypes">
+            <EntityTypeMapping TypeName="Excursions1Model.ExcursionType">
+              <MappingFragment StoreEntitySet="ExcursionType">
+                <ScalarProperty Name="typeId" ColumnName="typeId" />
+                <ScalarProperty Name="typeName" ColumnName="typeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payments">
+            <EntityTypeMapping TypeName="Excursions1Model.Payment">
+              <MappingFragment StoreEntitySet="Payment">
+                <ScalarProperty Name="paymentId" ColumnName="paymentId" />
+                <ScalarProperty Name="excursionId" ColumnName="excursionId" />
+                <ScalarProperty Name="clientId" ColumnName="clientId" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="isPaid" ColumnName="isPaid" />
+                <ScalarProperty Name="paid" ColumnName="paid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Excursions1Model.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExcursionBusDrivers">
+            <EntityTypeMapping TypeName="Excursions1Model.ExcursionBusDriver">
+              <MappingFragment StoreEntitySet="ExcursionBusDriver">
+                <ScalarProperty Name="excursionId" ColumnName="excursionId" />
+                <ScalarProperty Name="busId" ColumnName="busId" />
+                <ScalarProperty Name="driverId" ColumnName="driverId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ExcursionBus" TypeName="Excursions1Model.ExcursionBus" StoreEntitySet="ExcursionBus">
+            <EndProperty Name="Bus">
+              <ScalarProperty Name="busId" ColumnName="busId" />
+            </EndProperty>
+            <EndProperty Name="ExcursionType">
+              <ScalarProperty Name="typeId" ColumnName="excursionTypeId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="pay_for_excursions" FunctionName="Excursions1Model.Store.pay_for_excursions" />
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Excursions1Model.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Excursions1Model.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Excursions1Model.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Excursions1Model.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Excursions1Model.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="Excursions1Model.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Excursions1Model.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Excursions1Model.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Excursions1Model.Store.sp_upgraddiagrams" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
