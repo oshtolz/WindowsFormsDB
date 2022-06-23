@@ -6,5 +6,5 @@ Password: admin123
 
 -----------------------
 Prepared by
-student of PM32
-Holovanova Veronika
+student of PM31
+Vinchura Oleksand
