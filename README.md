@@ -2,7 +2,7 @@
 
 Login: admin
 Password: admin123
-
+(default)
 
 -----------------------
 Prepared by
