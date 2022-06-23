@@ -7,4 +7,4 @@ Password: admin123
 -----------------------
 Prepared by
 student of PM31
-Vinchura Oleksand
+Vinchura Oleksandr
