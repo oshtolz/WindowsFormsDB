@@ -15,9 +15,8 @@ namespace WindowsFormsDB
     public partial class Menu : Form
     {
 
-        string ConnectionString = @"Data Source=DESKTOP-KDVI0GR;Initial Catalog=Excursions1;Integrated Security=True";
+        string ConnectionString = @"Data Source=DESKTOP-1479TM1;Initial Catalog=Excursions1;Integrated Security=True";
 
-        // DESKTOP-1479TM1
         public Menu()
         {
             InitializeComponent();
